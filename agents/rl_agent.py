@@ -1,5 +1,7 @@
 import random
-from ..utils import get_allowed_moves
+from tqdm import tqdm
+from utils import get_allowed_moves
+from nim_game import NimGame
 
 
 class RLAgent:
@@ -67,7 +69,7 @@ class RLAgent:
         Returns:
             float: The Q-value for the state-action pair. (zero if not found)
         """
-        if (tuple(state), action) not in self.q:
+        if (tuple(state), action) in self.q:
             return self.q[(tuple(state), action)]
         else:
             return 0
@@ -159,3 +161,59 @@ class RLAgent:
             ]  # Choose an action based on the weights
 
         return best_action
+
+    def train(self, n, game=NimGame):
+
+        # agent = self
+
+        # Play n games
+        # print(f"Training on {n} games")
+
+        for i in tqdm(range(n), desc="Training RL Agent"):
+            # print(f"Playing training game {i + 1}")
+            # game = NimGame()
+            game.reset()
+
+            # Keep track of last move made by either player
+            last = {
+                0: {"state": None, "action": None},
+                1: {"state": None, "action": None},
+            }
+            player = 0
+            # Game loop
+            while True:
+
+                # Keep track of current state and action
+                state = game.piles.copy()
+                action = self.choose_action(game.piles)
+
+                # Keep track of last state and action
+                last[player]["state"] = state
+                last[player]["action"] = action
+
+                # Make move
+                game.move(action)
+                player = 0 if player == 1 else 1
+                new_state = game.piles.copy()
+
+                # When game is over, update Q values with rewards
+                if game.game_over:
+                    self.update(state, action, new_state, -1)
+                    self.update(
+                        last[player]["state"],
+                        last[player]["action"],
+                        new_state,
+                        1,
+                    )
+                    break
+
+                # If game is continuing, no rewards yet
+                elif last[player]["state"] is not None:
+                    self.update(
+                        last[player]["state"],
+                        last[player]["action"],
+                        new_state,
+                        0,
+                    )
+
+        print("Done training")

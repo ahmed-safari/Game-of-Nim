@@ -1,5 +1,5 @@
 import random
-from ..utils import get_allowed_moves
+from utils import get_allowed_moves
 
 
 class RandomAgent:
