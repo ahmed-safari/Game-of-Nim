@@ -7,14 +7,19 @@ class NimGame:
         self.piles = [random.randint(1, max_pile_size) for _ in range(piles_count)]
         self.game_over = False
 
-    def get_allowed_moves(piles):
-        actions = set()
-        for i, pile in enumerate(piles):
-            for j in range(1, pile + 1):
-                actions.add(
-                    (i, j)
-                )  # This meanns that the player can take j stones from pile i
-        return actions
+    # def get_allowed_moves(piles):
+    #     actions = set()
+    #     for i, pile in enumerate(piles):
+    #         for j in range(1, pile + 1):
+    #             actions.add(
+    #                 (i, j)
+    #             )  # This meanns that the player can take j stones from pile i
+    #     return actions
+    def reset(self):
+        """
+        Reset the game to its initial state.
+        """
+        self.__init__()
 
     def move(self, action):
         """
