@@ -1,5 +1,5 @@
 import random
-from utils import get_allowed_moves
+from nim_game import NimGame
 
 
 class RandomAgent:
@@ -13,6 +13,6 @@ class RandomAgent:
         Given a state, choose a random action from the available ations in that state.
         """
 
-        actions = list(get_allowed_moves(state))  # Get all possible actions
+        actions = list(NimGame.get_allowed_moves(state))  # Get all possible actions
 
         return random.choice(actions)  # Choose a random action

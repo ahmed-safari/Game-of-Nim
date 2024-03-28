@@ -4,22 +4,28 @@ import random
 class NimGame:
 
     def __init__(self, piles_count=5, max_pile_size=10):
+        # print(f"Piles count: {piles_count}")
+        # print(f"Max pile size: {max_pile_size}")
+        self.piles_count = piles_count
+        self.max_pile_size = max_pile_size
         self.piles = [random.randint(1, max_pile_size) for _ in range(piles_count)]
         self.game_over = False
 
-    # def get_allowed_moves(piles):
-    #     actions = set()
-    #     for i, pile in enumerate(piles):
-    #         for j in range(1, pile + 1):
-    #             actions.add(
-    #                 (i, j)
-    #             )  # This meanns that the player can take j stones from pile i
-    #     return actions
+    @staticmethod
+    def get_allowed_moves(piles):
+        actions = set()
+        for i, pile in enumerate(piles):
+            for j in range(1, pile + 1):
+                actions.add(
+                    (i, j)
+                )  # This meanns that the player can take j stones from pile i
+        return actions
+
     def reset(self):
         """
         Reset the game to its initial state.
         """
-        self.__init__()
+        self.__init__(self.piles_count, self.max_pile_size)
 
     def move(self, action):
         """

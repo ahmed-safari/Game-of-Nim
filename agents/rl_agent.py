@@ -1,6 +1,7 @@
 import random
 from tqdm import tqdm
-from utils import get_allowed_moves
+
+# from utils import get_allowed_moves
 from nim_game import NimGame
 
 
@@ -114,7 +115,7 @@ class RLAgent:
             best_reward (float): The highest Q-value among all available actions in the state.
         """
         best_reward = 0
-        actions = list(get_allowed_moves(state))
+        actions = list(NimGame.get_allowed_moves(state))
         for action in actions:
             best_reward = max(self.get_q_value(state, action), best_reward)
         return best_reward
@@ -135,7 +136,7 @@ class RLAgent:
 
         best_action = None  # The best action to take
         best_reward = 0  # The reward of the best action
-        actions = list(get_allowed_moves(state))  # Get all possible actions
+        actions = list(NimGame.get_allowed_moves(state))  # Get all possible actions
         for action in actions:  # Loop through all possible actions
             q_val = self.get_q_value(state, action)  # Get the Q-value of the action
             if (

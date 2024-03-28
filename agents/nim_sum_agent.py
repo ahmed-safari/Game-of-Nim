@@ -9,11 +9,11 @@ class NimSumAgent:
         """
         Selects an optimal move using the Nim-sum strategy, aiming to reduce the Nim-sum of all piles to zero.
 
-        Args:
+        Parameters:
             state (list[int]): The current state of the game, represented as a list where each element is the size of a pile.
 
         Returns:
-            tuple[int, int]: A tuple where the first element is the index of the pile to take from,
+            action (tuple[int, int]): A tuple where the first element is the index of the pile to take from,
                              and the second element is the number of items to remove from that pile.
         """
         nim_sum = 0
@@ -33,8 +33,3 @@ class NimSumAgent:
                 # This means we have a pile that can be reduced to make the Nim-sum zero.
                 remove_amount = pile - (pile ^ nim_sum)
                 return (index, remove_amount)
-
-        # The code should not reach this point for a valid game state and strategy.
-        raise Exception(
-            "No valid move found. This should never happen if the game state is valid."
-        )
