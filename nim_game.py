@@ -42,3 +42,10 @@ class NimGame:
         # Check for a winner
         if all(pile == 0 for pile in self.piles):
             self.game_over = True
+
+    def display(self):
+        """
+        Display the current state of the game.
+        """
+        for i, pile in enumerate(self.piles, start=1):
+            print(f"Pile {i}: {'*' * pile} ({pile} items)")
