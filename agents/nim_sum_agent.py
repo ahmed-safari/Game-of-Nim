@@ -17,8 +17,8 @@ class NimSumAgent:
                              and the second element is the number of items to remove from that pile.
         """
         nim_sum = 0
-        for pile in state:
-            nim_sum ^= pile
+        for pile in state:  # Calculate the Nim-sum of all piles
+            nim_sum ^= pile  # Bitwise XOR operation
 
         if nim_sum == 0:
             # If the Nim-sum is already 0, the strategy is to make a minimal impact move.
@@ -29,7 +29,11 @@ class NimSumAgent:
 
         # If the Nim-sum is not zero, find a move that makes the Nim-sum of all piles zero.
         for index, pile in enumerate(state):
-            if pile ^ nim_sum < pile:
+            if (
+                pile ^ nim_sum < pile
+            ):  # If the XOR of the pile and the Nim-sum is less than the pile size
                 # This means we have a pile that can be reduced to make the Nim-sum zero.
-                remove_amount = pile - (pile ^ nim_sum)
+                remove_amount = pile - (
+                    pile ^ nim_sum
+                )  # Calculate the amount to remove
                 return (index, remove_amount)
