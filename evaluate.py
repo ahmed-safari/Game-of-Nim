@@ -17,12 +17,12 @@ def evaluate_agents(agent_dict, n_games=1000, game=NimGame):
     - None: Prints out the statistical performance of each agent.
     """
 
-    results = {
-        name: {
-            opponent_name: 0 for opponent_name in agent_dict if opponent_name != name
-        }
-        for name in agent_dict
-    }
+    results = {}
+    for name in agent_dict:
+        results[name] = {}
+        for opponent_name in agent_dict:
+            if opponent_name != name:
+                results[name][opponent_name] = 0
 
     for agent_name, agent in agent_dict.items():
         for opponent_name, opponent in agent_dict.items():
