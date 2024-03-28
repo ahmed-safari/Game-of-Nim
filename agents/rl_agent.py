@@ -144,7 +144,7 @@ class RLAgent:
                 best_reward = q_val  # Update the best reward
                 best_action = action  # Update the best action
 
-        if epsilon:  # If epsilon is enabled
+        if epsilon:  # If epsilon is enabled (exploration)
             weights = []
             for action in actions:  # Loop through all possible actions
                 if action == best_action:  # If the action is the best action
@@ -198,12 +198,12 @@ class RLAgent:
 
                 # When game is over, update Q values with rewards
                 if game.game_over:
-                    self.update(state, action, new_state, -1)
+                    self.update(state, action, new_state, 1)
                     self.update(
                         last[player]["state"],
                         last[player]["action"],
                         new_state,
-                        1,
+                        -1,
                     )
                     break
 
@@ -215,5 +215,3 @@ class RLAgent:
                         new_state,
                         0,
                     )
-
-        print("Done training")
